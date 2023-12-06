@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
 import Products from '../components/mainProducts'
 import { dummyProducts } from '../constant/dummyProducts'
 
 
-const HomePage = () => {
+const HomePage = (props) => {
 
-
-    const [prodData, setProdData] = useState([])
-    useEffect(() => {
-        setTimeout(() => {
-            setProdData(dummyProducts)
-        }, 1000)
-    }, [])
-    
 
     return (
-        <Products prod={prodData} />
+        <Products prod={props?.products} />
     )
+}
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            products: dummyProducts,
+        }
+    };
 }
 
 export default HomePage
