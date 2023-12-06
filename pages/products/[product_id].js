@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import classes from '../../components/mainProducts.module.css'
+import Image from "next/image"
 
 const DynamicPage = () => {
 
@@ -15,8 +16,8 @@ const DynamicPage = () => {
             <div className={`${classes.main}`}>
                 {arr.map((_, index) => {
                     return (
-                        <div className={`${classes.itemBox}`}>
-                            <img
+                        <div key={index} className={`${classes.itemBox}`}>
+                            <Image
                                 src={`https://source.unsplash.com/300x300/?${product_id}-${index}`}
                                 className={`${classes.itemImg}`} alt="product photo"
                             />

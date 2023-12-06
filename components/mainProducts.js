@@ -1,6 +1,7 @@
 import Link from "next/link"
-import { useRouter } from "next/router";
-import classes from './mainProducts.module.css';
+import Image from "next/image"
+import { useRouter } from "next/router"
+import classes from './mainProducts.module.css'
 
 const Products = (props) => {
 
@@ -15,7 +16,7 @@ const Products = (props) => {
             return (
                 <div key={item?.id} className={`${classes.itemBox}`}>
                     <Link onClick={navigateHamdler} href=''>
-                        <img
+                        <Image
                             src={`https://source.unsplash.com/300x300/?${item?.title}`}
                             className={`${classes.itemImg}`} alt="product photo"
                         />

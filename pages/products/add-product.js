@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import classes from './add-product.module.css'
+import Image from "next/image"
 import MyInput from '../../components/ui/MyInput'
 
 
@@ -77,7 +78,7 @@ const AddProduct = () => {
                             value={image}
                             onChangeHandler={imageHandler}
                         />
-                        {image && <img src={image} alt="product image" style={{width: 100, height:100, borderRadius:5}} />}
+                        {image && <Image src={image} alt="product image" style={{width: 100, height:100, borderRadius:5}} />}
                     </div>
                     {/* <div className={classes.control}>
                         <label htmlFor='title'>Meetup Title</label>
