@@ -60,19 +60,6 @@ export const getStaticProps = async (context) => {
     // Create Collection/table
     const prodCollections = db.collection('products');
     const prodData = await prodCollections.findOne({ _id: new ObjectId(prod_id) });
-    // console.log('prodData', prodData)
-    // const prod = await prodCollections.find().toArray();
-    // const prodData = prod.map((item) => {
-    //     if (item?._id.toString() == prod_id) {
-    //         return {
-    //             id: item?._id.toString(),
-    //             title: item?.title,
-    //             desc: item?.desc,
-    //             price: item?.price,
-    //             image: item?.image,
-    //         }
-    //     }
-    // });
     client.close();
 
 
