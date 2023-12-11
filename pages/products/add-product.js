@@ -1,15 +1,18 @@
 import { useState } from 'react'
 import classes from './add-product.module.css'
-// import Image from "next/image"
+import { useRouter } from 'next/router'
 import MyInput from '../../components/ui/MyInput'
 
 
 const AddProduct = () => {
 
-    const [title, setTitle] = useState(null)
-    const [desc, setDesc] = useState(null)
-    const [price, setPrice] = useState(null)
-    const [image, setImage] = useState(null)
+
+    const router = useRouter();
+    const [title, setTitle] = useState('')
+    const [desc, setDesc] = useState('')
+    const [price, setPrice] = useState('')
+    const [image, setImage] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const titleHandler = (event) => {
         setTitle(event?.target?.value)
@@ -24,16 +27,34 @@ const AddProduct = () => {
         setImage(event?.target?.value)
     }
 
-    const addNewProductHandler = (event) => {
-        event.preventDefault()
+    const addNewProductHandler = async (event) => {
+        event.preventDefault();
+        setLoading(true)
+
         if (!disabled) {
-            const data = {
-                title: title,
-                desc: desc,
-                price: price,
-                image: image,
+            try {
+                const data = {
+                    title: title,
+                    desc: desc,
+                    price: price,
+                    image: image,
+                };
+                const response = await fetch(`/api/productHandler`, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const finalData = await response.json();
+                if (finalData?.status) {
+                    router.push('/products/');
+                    setLoading(false)
+                    console.log(finalData?.message);
+                }
             }
-            console.log('Final Data=', data)
+            catch (e) {
+                console.log('e = ', e);
+            }
         }
         else {
             alert('Please fill all input fields.')
@@ -44,7 +65,7 @@ const AddProduct = () => {
 
     return (
         <section>
-            <h1 className={`heading`}>Add new product</h1>
+            <h1 className={`heading`}>Add New Product</h1>
 
             <div className={`${classes.formBox}`}>
                 <form className={classes.form} onSubmit={addNewProductHandler} method='POST'>
@@ -64,6 +85,7 @@ const AddProduct = () => {
                             onChange={descHandler}
                         ></textarea>
                     </div>
+
                     <MyInput
                         label='Product Price'
                         type='number'
@@ -77,20 +99,19 @@ const AddProduct = () => {
                             type='text'
                             value={image}
                             onChangeHandler={imageHandler}
+                            placeholder={'Enter image url'}
                         />
                         {image && <img src={image} alt="product image" style={{width: 100, height:100, borderRadius:5}} />}
                     </div>
-                    {/* <div className={classes.control}>
-                        <label htmlFor='title'>Meetup Title</label>
-                        <input type='text' val={title} />
-                    </div> */}
-                    {/* <div className={classes.control}>
-                        <label htmlFor='image'>Meetup Image</label>
-                        <input type='file' id='image' value={image} />
-                    </div> */}
-                    <div className={classes.actions}>
-                        <button>Add Product</button>
-                    </div>
+
+                    {loading ?
+                        <div style={{textAlign: 'center', display:'flex',justifyContent:'center', alignItems:'center'}}>
+                            <img src='https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca.gif' style={{height: 25, width: 25, marginRight: 10}}/><span>{'Loading...'}</span>
+                        </div>
+                        : <div className={classes.actions}>
+                            <button>Add Product</button>
+                        </div>
+                    }
                 </form>
             </div>
         </section>
