@@ -6,7 +6,7 @@ function Footer() {
         <footer className={classes.footer} >
             <div className={''}>Barter Away</div>
             <div>
-                <p>Design & Developed By Malick Asad</p>
+                <p>Design & Developed By <a href='https://www.linkedin.com/in/asadmumtaz92/'>Malick Asad</a></p>
             </div>
         </footer>
     );
