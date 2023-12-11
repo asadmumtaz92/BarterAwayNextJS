@@ -2,6 +2,7 @@ import { useState } from 'react'
 import classes from './add-product.module.css'
 import { useRouter } from 'next/router'
 import MyInput from '../../components/ui/MyInput'
+import Head from 'next/head'
 
 
 const AddProduct = () => {
@@ -65,6 +66,10 @@ const AddProduct = () => {
 
     return (
         <section>
+            <Head>
+                <title>Add Products</title>
+                <meta name='description' content='Barter Away exchange your products.' />
+            </Head>
             <h1 className={`heading`}>Add New Product</h1>
 
             <div className={`${classes.formBox}`}>

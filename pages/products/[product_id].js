@@ -1,5 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import classes from '../../components/mainProducts.module.css';
+import Head from 'next/head';
 // import { useRouter } from 'next/router';
 
 
@@ -13,6 +14,10 @@ const DynamicPage = (props) => {
 
     return (
         <section>
+            <Head>
+                <title>{product?.title}</title>
+                <meta name='description' content={`${product?.title}. ${product?.desc}. Barter Away exchange your products.`} />
+            </Head>
             <div className={`${classes.main}`}>
                 <img
                     // src={`https://source.unsplash.com/300x300/?${product_id}-${index}`}

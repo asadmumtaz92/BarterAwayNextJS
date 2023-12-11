@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
 import ProductsComp from '../../components/mainProducts';
+import Head from 'next/head';
 
 
 const Products = (props) => {
@@ -7,6 +8,10 @@ const Products = (props) => {
 
     return (
         <section>
+            <Head>
+                <title>Products</title>
+                <meta name='description' content='Barter Away exchange your products.' />
+            </Head>
             <h1 className={`heading`}>
                 {`Explore All Products`}
             </h1>

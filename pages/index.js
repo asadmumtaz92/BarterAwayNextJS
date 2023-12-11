@@ -1,11 +1,21 @@
+import { Fragment } from 'react';
 import { MongoClient } from 'mongodb';
 import Products from '../components/mainProducts';
+import Head from 'next/head';
 
 
 const HomePage = (props) => {
 
 
-    return <Products prod={props?.products} />
+    return (
+        <Fragment>
+            <Head>
+                <title>Home</title>
+                <meta name='description' content='Barter Away exchange your products.' />
+            </Head>
+            <Products prod={props?.products} />
+        </Fragment>
+    )
 }
 
 // its run on every incoming request NOTE getStaticProps is better then getServerSideProps
