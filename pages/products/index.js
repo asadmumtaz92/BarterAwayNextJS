@@ -1,5 +1,5 @@
-import ProductsComp from '../../components/mainProducts'
-import { dummyProducts } from '../../constant/dummyProducts'
+import { MongoClient } from 'mongodb';
+import ProductsComp from '../../components/mainProducts';
 
 
 const Products = (props) => {
@@ -29,9 +29,26 @@ const Products = (props) => {
 
 export const getStaticProps = async () => {
     // fetch data from an API
+    // Connect Data Base
+    const client = await MongoClient.connect('mongodb+srv://asadmumtaz92:Qwerty123@cluster1.csldcdq.mongodb.net/BarterAway?retryWrites=true&w=majority');
+    const db = client.db();
+    
+    // Create Collection/table
+    const prodCollections = db.collection('products');
+    const allProd = await prodCollections.find().toArray();
+    client.close();
+
     return {
         props: {
-            products: dummyProducts,
+            products: allProd.map((item) => {
+                return {
+                    id: item?._id.toString(),
+                    title: item?.title,
+                    desc: item?.desc,
+                    price: item?.price,
+                    image: item?.image,
+                }
+            })
         },
         revalidate: 10, // get leatest data after every 10 second (use for production)
     };

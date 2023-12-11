@@ -1,71 +1,90 @@
-// import { useRouter } from 'next/router'
-import classes from '../../components/mainProducts.module.css'
-// import Image from "next/image"
+import { MongoClient, ObjectId } from 'mongodb';
+import classes from '../../components/mainProducts.module.css';
+// import { useRouter } from 'next/router';
 
 
 const DynamicPage = (props) => {
 
 
-    // const router = useRouter()
-    // const product_id = router.query.product_id
-    const product_id = props.product_id
-    const arr = [{}, {}, {}, {}, {}, {}, {}, {},]
+    // const router = useRouter();
+    // const product_id = router.query.product_id;
+    const product = props?.product;
 
 
     return (
         <section>
-            <h1 className={`heading`}>{product_id}</h1>
             <div className={`${classes.main}`}>
-                {arr.map((_, index) => {
-                    return (
-                        <div key={index} className={`${classes.itemBox}`}>
-                            <img
-                                src={`https://source.unsplash.com/300x300/?${product_id}-${index}`}
-                                className={`${classes.itemImg}`} alt="product photo"
-                            />
-                        </div>
-                    )
-                })}
+                <img
+                    // src={`https://source.unsplash.com/300x300/?${product_id}-${index}`}
+                    src={`${product?.image}`}
+                    className={``} alt="product photo"
+                    style={{height: '80%'}}
+                />
             </div>
+            <h1 className={`heading`} style={{marginTop: 20}}>{product?.title}</h1>
+            <h6 className={``}>DESCRIPTION: {product?.desc}</h6>
         </section>
     )
 }
 
 export const getStaticPaths = async () => {
 
+    // Connect Data Base
+    const client = await MongoClient.connect('mongodb+srv://asadmumtaz92:Qwerty123@cluster1.csldcdq.mongodb.net/BarterAway?retryWrites=true&w=majority');
+    const db = client.db();
+
+    // Create Collection/table
+    const prodCollections = db.collection('products');
+    const allProd = await prodCollections.find().toArray();
+    // const prod = allProd.map(item => { return { id: item?._id.toString() } })
+    client.close();
+
     return {
         fallback: false, // accessable link other than this you got 404 page (if its false then response 404 if path not match) && (if its true then response is shown)
-        paths: [
-            {
-                params: {product_id: 'Car' }
-            },
-            {
-                params: { product_id: 'Yoga' }
-            },
-            {
-                params: { product_id: 'Nature' }
-            },
-            {
-                params: { product_id: 'Beachs' }
-            },
-            {
-                params: { product_id: 'Animals' }
-            },
-            {
-                params: { product_id: 'Laptops' }
-            },
-        ],
+        paths: allProd.map((item) => ({
+            params: { product_id: item?._id.toString() },
+        })),
+        // OR
+        // paths: [{ params: { product_id: 'Cars' } }],
     }
 }
 
 export const getStaticProps = async (context) => {
-    // fetch data from an API
-    
-    // get pro id from link but her we don't use router so use context
+    // get prod id from link but here we use context insted of router
     const prod_id = context.params.product_id;
+
+    // Connect Data Base
+    const client = await MongoClient.connect('mongodb+srv://asadmumtaz92:Qwerty123@cluster1.csldcdq.mongodb.net/BarterAway?retryWrites=true&w=majority');
+    const db = client.db();
+
+    // Create Collection/table
+    const prodCollections = db.collection('products');
+    const prodData = await prodCollections.findOne({ _id: new ObjectId(prod_id) });
+    // console.log('prodData', prodData)
+    // const prod = await prodCollections.find().toArray();
+    // const prodData = prod.map((item) => {
+    //     if (item?._id.toString() == prod_id) {
+    //         return {
+    //             id: item?._id.toString(),
+    //             title: item?.title,
+    //             desc: item?.desc,
+    //             price: item?.price,
+    //             image: item?.image,
+    //         }
+    //     }
+    // });
+    client.close();
+
+
     return {
         props: {
-            product_id: prod_id,
+            product: {
+                id: prodData?._id.toString(),
+                title: prodData?.title,
+                desc: prodData?.desc,
+                price: prodData?.price,
+                image: prodData?.image,
+            },
         },
         revalidate: 10, // get leatest data after every 10 second (use for production)
     };
