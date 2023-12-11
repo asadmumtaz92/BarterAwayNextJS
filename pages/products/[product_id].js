@@ -45,7 +45,7 @@ export const getStaticPaths = async () => {
     client.close();
 
     return {
-        fallback: false, // accessable link other than this you got 404 page (if its false then response 404 if path not match) && (if its true then response is shown)
+        fallback: 'blocking', // accessable link other than this you got 404 page (if its false then response 404 if path not match) && (if its true then response is shown)
         paths: allProd.map((item) => ({
             params: { product_id: item?._id.toString() },
         })),
