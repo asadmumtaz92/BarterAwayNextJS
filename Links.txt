@@ -1,0 +1,13 @@
+https://vercel.com/asadmumtaz92s-projects/barter-away-next-js
+
+https://barter-away-next-js-git-main-asadmumtaz92s-projects.vercel.app/
+
+https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/25616720#overview
+
+
+
+
+npm run dev
+
+npm run build
+npm start
