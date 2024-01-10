@@ -2,11 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    flex: 1;
     background-color: #ffffff;
     padding: 10px;
     border-radius: 8px;
-    justify-Content: center;
+    width: 80% !important;
+    margin: auto;
 }
 .itemBox {
     width: 31.73%;
@@ -18,8 +18,14 @@
     border-radius: 5px;
     overflow: hidden;
 }
+.innerItemBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+}
 .itemImg {
-    width: 100%;
 }
 .itemTitle {
     text-align: center;

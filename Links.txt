@@ -1,3 +1,21 @@
+1. npx/yarn create-next-app
+2. Enter name
+3. Selecte options
+4. Start the dev server: npm run dev
+5. Build app for production: npm run build
+6. Run the build app in prod mode: npm start
+7.  
+8. 
+
+Folder Structure
+1. Public = for assets like images, icon & library etc.
+2. Pages  = our app pages and routes
+3. Style  =  styles files
+4. 
+
+
+
+        ULOAD APP 
 https://vercel.com/asadmumtaz92s-projects/barter-away-next-js
 
 https://barter-away-next-js-git-main-asadmumtaz92s-projects.vercel.app/
@@ -11,3 +29,7 @@ npm run dev
 
 npm run build
 npm start
+
+
+Next.JS Commands
+

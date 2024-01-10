@@ -14,7 +14,7 @@ const Products = (props) => {
             }
             return (
                 <div key={item?.id} className={`${classes.itemBox}`}>
-                    <Link onClick={navigateHamdler} href=''>
+                    <Link onClick={navigateHamdler} href='' className={`${classes.innerItemBox}`}>
                         <img
                             // src={`https://source.unsplash.com/300x300/?${item?.title}`}
                             src={`${item?.image}`}

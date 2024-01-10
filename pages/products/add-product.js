@@ -65,7 +65,7 @@ const AddProduct = () => {
 
 
     return (
-        <section>
+        <section className={`col-6 h-screen`}>
             <Head>
                 <title>Add Products</title>
                 <meta name='description' content='Barter Away exchange your products.' />
@@ -88,6 +88,7 @@ const AddProduct = () => {
                             rows='3'
                             value={desc}
                             onChange={descHandler}
+                            style={{backgroundColor: 'rgba(211, 211, 211, 0.534)'}}
                         ></textarea>
                     </div>
 
